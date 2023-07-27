@@ -16,6 +16,7 @@ deneme2
 
 ```{r}
 #| eval: true
+#| include: false
 file.copy("index.html", "docs/index.html", overwrite = TRUE)
 ```
 
