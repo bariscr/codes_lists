@@ -12,9 +12,11 @@ toc-location: left
 title-block-banner: true
 ---
 
+deneme2
 
 ```{r}
-file.copy("codes.html", "www/codes.html", overwrite = TRUE)
+#| eval: true
+file.copy("index.html", "docs/index.html", overwrite = TRUE)
 ```
 
 
