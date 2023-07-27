@@ -1,41 +1,40 @@
-# Codes
+---
+title: "Codes"
+format: 
+  html: 
+    embed-resources: true
+    page-layout: full
+execute: 
+  eval: false
+  warning: false
+toc: true
+toc-location: left
+title-block-banner: true
+---
 
--   [SQL](#sql)
-    -   [Connection](#connection)
-    -   [insert into](#insert-into)
--   [Datatable (DT)](#datatable-dt)
-    -   [Columndefs](#columndefs)
--   [Excel](#excel)
-    -   [Show all excel sheets as
-        datatable](#show-all-excel-sheets-as-datatable)
-    -   [Download all excel sheets to the
-        environment](#download-all-excel-sheets-to-the-environment)
--   [Plotly](#plotly)
-    -   [hline](#hline)
--   [File operations - use very
-    carefully](#file-operations---use-very-carefully)
--   [Yedekleme](#yedekleme)
 
-``` r
+```{r}
 file.copy("codes.html", "www/codes.html", overwrite = TRUE)
 ```
+
 
 # SQL
 
 ## Connection
 
-``` r
+```{r}
 con2 <- dbConnect(MySQL(),
   user = Sys.getenv("xxx"),
   password = Sys.getenv("xxx")
 )
 
 dbGetQuery(con2, "set names utf8")
+
 ```
 
 ## insert into
 
-``` r
+```{r}
 a <- read_excel("/path/excel_file.xlsx",
            sheet = "done"
            ) |> 
@@ -54,11 +53,14 @@ dbGetQuery(con2, glue::glue('insert into daily.table_x (id, event, date_done)
                                      \'', a$event[i], '\',
                                      \'', a$date_done[i], '\');'))
 }
+
+
 ```
+
 
 # Datatable (DT)
 
-``` r
+```{r}
 datatable(data, 
           rownames = FALSE,
           selection = 'single',
@@ -73,18 +75,20 @@ datatable(data,
           ))
 ```
 
+
 ## Columndefs
 
-``` r
+```{r}
 columnDefs = list(
                  list(targets = "_all", width = "150px") 
 ```
+
 
 # Excel
 
 ## Show all excel sheets as datatable
 
-``` r
+```{r}
 library(purrr)
 
 path <- "data/info.xlsx"
@@ -95,24 +99,27 @@ map(
     read_excel(path, sheet = x) |> DT::datatable()
   }
 )
+
 ```
 
 ## Download all excel sheets to the environment
 
-``` r
+```{r}
 walk(
   .x = excel_sheets(path),
   .f = function(x) {
     assign(x, read_excel(path, sheet = x), envir = .GlobalEnv)
   }
 )
+
 ```
+
 
 # Plotly
 
 ## hline
 
-``` r
+```{r}
 hline <- function(y = 0, color = "blue") {
   list(
     type = "line",
@@ -128,7 +135,7 @@ hline <- function(y = 0, color = "blue") {
 
 # File operations - use very carefully
 
-``` r
+```{r}
 dir.create("/xxxxxxxxxx")
 a
 fs::dir_delete("/Users/xxxxx/xxxxxxxx/xxxxxxxx")
@@ -136,7 +143,7 @@ fs::dir_delete("/Users/xxxxx/xxxxxxxx/xxxxxxxx")
 
 # Yedekleme
 
-``` r
+```{r}
 # path i belirle
 path <- "/Users/xxxxx/xxxx/dataxxxxxx"
 # önce içerisinde directory oluştur
@@ -155,3 +162,4 @@ path_new <- paste0(path, "yedek_coord2_", ek, "/") # path i güncelle
 
 fs::dir_copy("/Users/xxxx/Documents/projectsxxxxxx/xxxx" , path_new)
 ```
+
