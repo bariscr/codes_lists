@@ -21,6 +21,9 @@ file.copy("language.html", "docs/language.html", overwrite = TRUE)
 
 ```
 
+[Page 1](#language)
+
+[Language](https://bariscr.github.io/codes_lists/language)
 
 # SQL
 

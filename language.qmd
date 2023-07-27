@@ -1,6 +1,15 @@
 ---
-title: "another qmd"
-format: html
+title: "Language"
+format: 
+  html: 
+    embed-resources: true
+    page-layout: full
+execute: 
+  eval: false
+  warning: false
+toc: true
+toc-location: left
+title-block-banner: true
 ---
 
 ## Quarto
