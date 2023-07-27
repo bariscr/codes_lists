@@ -1,6 +1,9 @@
 ---
 title: "Codes"
-format: markdown_github
+format: 
+  html: 
+    embed-resources: true
+    page-layout: full
 execute: 
   eval: false
   warning: false
