@@ -12,12 +12,13 @@ toc-location: left
 title-block-banner: true
 ---
 
-deneme2
 
 ```{r}
 #| eval: true
 #| include: false
 file.copy("index.html", "docs/index.html", overwrite = TRUE)
+file.copy("language.html", "docs/language.html", overwrite = TRUE)
+
 ```
 
 

@@ -1,0 +1,7 @@
+---
+title: "another qmd"
+format: html
+---
+
+## Quarto
+okfneınveınvı
