@@ -166,3 +166,9 @@ path_new <- paste0(path, "yedek_coord2_", ek, "/") # path i güncelle
 fs::dir_copy("/Users/xxxx/Documents/projectsxxxxxx/xxxx" , path_new)
 ```
 
+
+# Shortcuts
+
+## RStudio
+
+Zoom in/out: Cmd + . / -
