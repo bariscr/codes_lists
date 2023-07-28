@@ -21,7 +21,6 @@ file.copy("language.html", "docs/language.html", overwrite = TRUE)
 
 ```
 
-[Page 1](#language)
 
 [Language](https://bariscr.github.io/codes_lists/language)
 
@@ -169,6 +168,22 @@ path_new <- paste0(path, "yedek_coord2_", ek, "/") # path i güncelle
 
 fs::dir_copy("/Users/xxxx/Documents/projectsxxxxxx/xxxx" , path_new)
 ```
+
+
+# Shiny
+
+## Creating a desktop app
+
+* Open a text editor (Sublime Text)
+* Write the following according to the path of your shiny file (the root where ui and server stands in a split case)
+* The port is to your preference, any available and suitable port
+
+```{r}
+ R -e "shiny::runApp('/Users/xxxx/Documents/projects/xxxx/', port = xxxx)" &
+ open http://127.0.0.1:xxxx/;
+```
+
+* Save the file as filename.command
 
 
 # Shortcuts
