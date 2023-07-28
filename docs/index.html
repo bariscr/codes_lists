@@ -3059,6 +3059,10 @@ vertical-align: -.125em;
   </ul></li>
   <li><a href="#file-operations---use-very-carefully" id="toc-file-operations---use-very-carefully" class="nav-link" data-scroll-target="#file-operations---use-very-carefully">File operations - use very carefully</a></li>
   <li><a href="#yedekleme" id="toc-yedekleme" class="nav-link" data-scroll-target="#yedekleme">Yedekleme</a></li>
+  <li><a href="#shiny" id="toc-shiny" class="nav-link" data-scroll-target="#shiny">Shiny</a>
+  <ul class="collapse">
+  <li><a href="#creating-a-desktop-app" id="toc-creating-a-desktop-app" class="nav-link" data-scroll-target="#creating-a-desktop-app">Creating a desktop app</a></li>
+  </ul></li>
   <li><a href="#shortcuts" id="toc-shortcuts" class="nav-link" data-scroll-target="#shortcuts">Shortcuts</a>
   <ul class="collapse">
   <li><a href="#rstudio" id="toc-rstudio" class="nav-link" data-scroll-target="#rstudio">RStudio</a></li>
@@ -3073,7 +3077,6 @@ vertical-align: -.125em;
 
 
 
-<p><a href="#language">Page 1</a></p>
 <p><a href="https://bariscr.github.io/codes_lists/language">Language</a></p>
 <section id="sql" class="level1">
 <h1>SQL</h1>
@@ -3213,6 +3216,24 @@ vertical-align: -.125em;
 <span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_copy</span>(<span class="st">&quot;/Users/xxxx/Documents/projectsxxxxxx/xxxx&quot;</span> , path_new)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="shiny" class="level1">
+<h1>Shiny</h1>
+<section id="creating-a-desktop-app" class="level2">
+<h2 class="anchored" data-anchor-id="creating-a-desktop-app">Creating a desktop app</h2>
+<ul>
+<li>Open a text editor (Sublime Text)</li>
+<li>Write the following according to the path of your shiny file (the root where ui and server stands in a split case)</li>
+<li>The port is to your preference, any available and suitable port</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a> R <span class="sc">-</span>e <span class="st">&quot;shiny::runApp(&#39;/Users/xxxx/Documents/projects/xxxx/&#39;, port = xxxx)&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a> open http<span class="sc">:</span><span class="er">//</span><span class="dv">127</span>.<span class="dv">0</span>.<span class="fl">0.1</span><span class="sc">:</span>xxxx<span class="sc">/</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Save the file as filename.command</li>
+</ul>
+</section>
 </section>
 <section id="shortcuts" class="level1">
 <h1>Shortcuts</h1>
