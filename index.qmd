@@ -21,8 +21,36 @@ file.copy("language.html", "docs/language.html", overwrite = TRUE)
 
 ```
 
+# Links to other pages
 
 [Language](https://bariscr.github.io/codes_lists/language)
+
+
+# R
+
+## Wrangle
+
+### Create a character from vector
+
+```{r}
+age_groups <- us_censusbureau_data |> distinct(age_group) |> pull()
+reproductive_age_group <- age_groups[5:11]
+cat(paste0('"', reproductive_age_group, '"', collapse = ", "))
+
+```
+
+### Split data based on categories of a variable
+
+
+```{r}
+list_of_datasets <- split(my_data, my_data$year)
+
+for (category_name in names(list_of_datasets)) {
+  assign(paste0("dataset_", category_name), list_of_datasets[[category_name]])
+}
+```
+
+
 
 # SQL
 
@@ -65,6 +93,35 @@ dbGetQuery(con2, glue::glue('insert into daily.table_x (id, event, date_done)
 
 
 # Datatable (DT)
+
+
+```{r}
+datatable(options = list(
+                dom = 't',
+                pageLength = 20,
+                columnDefs = list(list(className = 'dt-right', targets = 1:4)
+                                  )
+                ),
+                rownames= FALSE,
+                colnames = c("Province", 
+                             "Female", 
+                             "Male", 
+                             "Total", 
+                             "Percentage")
+                ) |> 
+   formatRound(
+    'perc',
+    digits = 1
+    ) |> 
+   formatStyle(
+    'perc',
+    background = styleColorBar(t_gender_prov$perc, 'lightblue'),
+    backgroundSize = '100% 90%',
+    backgroundRepeat = 'no-repeat',
+    backgroundPosition = 'center'
+  ) 
+```
+
 
 ```{r}
 datatable(data, 
@@ -123,6 +180,10 @@ walk(
 
 # Plotly
 
+## Reference
+
+[plotly-r.com](https://plotly-r.com/index.html)
+
 ## hline
 
 ```{r}
@@ -138,6 +199,65 @@ hline <- function(y = 0, color = "blue") {
   )
 }
 ```
+
+
+## Rectangle
+
+```{r}
+# Load required libraries
+library(plotly)
+
+# Sample data
+df <- data.frame(
+  x = seq(as.Date("2018-09-01"), as.Date("2018-12-31"), by = "days"),
+  y = runif(122, min = 0, max = 100)
+)
+
+# Create the plot
+fig <- plot_ly(df, x = ~x, y = ~y, type = 'scatter', mode = 'lines', line = list(color = 'blue'))
+
+# Add the vertical rectangle using layout shapes
+fig <- fig %>% layout(
+  shapes = list(
+    list(
+      type = "rect",
+      x0 = as.Date("2018-09-24"),  # Start x-coordinate of the rectangle
+      x1 = as.Date("2018-12-18"),  # End x-coordinate of the rectangle
+      y0 = 0,  # Start y-coordinate of the rectangle (y-axis minimum)
+      y1 = 100,  # End y-coordinate of the rectangle (y-axis maximum)
+      fillcolor = "green",
+      opacity = 0.25,
+      line = list(width = 0)
+    )
+  )
+)
+
+# Add annotation text to the rectangle
+fig <- fig %>% layout(
+  annotations = list(
+    list(
+      x = as.Date("2018-09-24"),  # x-coordinate of the annotation
+      y = 100,  # y-coordinate of the annotation (top of the plot)
+      text = "decline",
+      showarrow = FALSE,
+      font = list(color = "black"),
+      xref = "x",
+      yref = "y"
+    )
+  ),
+  title = "Sample Plot with Vertical Rectangle",
+  xaxis = list(title = "Date"),
+  yaxis = list(title = "Value")
+)
+
+# Show the plot
+fig
+
+
+```
+
+
+
 
 # File operations - use very carefully
 
@@ -191,3 +311,11 @@ fs::dir_copy("/Users/xxxx/Documents/projectsxxxxxx/xxxx" , path_new)
 ## RStudio
 
 Zoom in/out: Cmd + . / -
+
+
+# To use in population projects
+
+```{r}
+reproductive_age_group <- c("15-19", "20-24", "25-29", "30-34", "35-39", "40-44", "45-49")
+```
+
