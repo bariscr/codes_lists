@@ -353,6 +353,27 @@ fs::dir_copy("/Users/xxxx/Documents/projectsxxxxxx/xxxx" , path_new)
 ```
 
 
+```{r}
+# path i belirle
+path <- "xxxxx/"
+library(stringr)
+# folders
+source_folders <- c("aaaa",
+                    "bbbb") 
+
+
+for (source_folder in source_folders) {
+  fs::dir_copy(source_folder, path)
+}
+
+# files
+file.copy(dir()[str_ends(dir(), "qmd")] , path)
+
+```
+
+
+
+
 # Shiny
 
 ## Creating a desktop app
