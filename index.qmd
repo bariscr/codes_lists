@@ -13,6 +13,10 @@ title-block-banner: true
 ---
 
 
+
+
+
+
 ```{r}
 #| eval: true
 #| include: false
@@ -50,6 +54,34 @@ for (category_name in names(list_of_datasets)) {
 }
 ```
 
+### mutate, across
+
+```{r}
+mutate(across(var1:`var5, 
+              ~ round(.x / var6 * 1000, 2), 
+              .names = "{.col} (MMR)"))
+```
+
+
+### Using variable names programatically
+
+```{r}
+plot_ly(x = ~as.formula(paste0("~", "`", var_name_list[7], "`"))
+
+x = ~get(a)
+
+filter(!!sym(var_name_list[i]) != "Total")  
+  
+rename(var1 := !!var_name_list[i]) 
+
+```
+
+### readlines
+
+```{r}
+file_path <- "README.qmd"
+content <- readLines(file_path)
+```
 
 
 # SQL
@@ -143,11 +175,42 @@ datatable(data,
 
 ```{r}
 columnDefs = list(
-                 list(targets = "_all", width = "150px") 
+                 list(targets = "_all", width = "150px")
+)
 ```
 
 
 # Excel
+
+## readxl
+
+If there are warnings indicating ....logical, etc:
+
+Set the col_types argument to "text"
+
+```{r}
+read_excel("data/aaa.xlsx",
+             sheet = "Estimates",
+             skip = 16,
+             col_types = "text")
+```
+
+
+## Load workbook, order the workbooks, and delete
+
+
+```{r}
+library(openxlsx)
+wb <- loadWorkbook("data/info.xlsx")
+names(wb)
+
+worksheetOrder(wb) <-  order(names(wb)) # alphabetically ordering 
+removeWorksheet(wb, "Sheetxxx")
+saveWorkbook(wb, "data/info.xlsx", overwrite = TRUE)
+
+```
+
+
 
 ## Show all excel sheets as datatable
 
@@ -298,7 +361,7 @@ fs::dir_copy("/Users/xxxx/Documents/projectsxxxxxx/xxxx" , path_new)
 * Write the following according to the path of your shiny file (the root where ui and server stands in a split case)
 * The port is to your preference, any available and suitable port
 
-```{r}
+```{txt}
  R -e "shiny::runApp('/Users/xxxx/Documents/projects/xxxx/', port = xxxx)" &
  open http://127.0.0.1:xxxx/;
 ```
@@ -319,3 +382,125 @@ Zoom in/out: Cmd + . / -
 reproductive_age_group <- c("15-19", "20-24", "25-29", "30-34", "35-39", "40-44", "45-49")
 ```
 
+
+# Map
+
+## Plotly marker over polygon
+
+```{r}
+library(sf)
+
+district <- 
+  st_read("data/shape_file/Districts.shp")
+
+district_center <- 
+  district |> 
+  st_centroid() |> 
+  mutate(x = map_dbl(geometry, 1),
+         y = map_dbl(geometry, 2))
+
+# add polygons
+map <- 
+  plot_geo(data = district) |> 
+  add_sf(hoverinfo = "text") |> 
+  hide_colorbar() |> 
+  layout(showlegend = FALSE)
+
+# add markers
+map <- 
+  map |> 
+  add_trace(
+    data = data_with_markers,
+    type = "scattermapbox",   
+    mode = "markers",
+    lon = ~_longitude,
+    lat = ~latitude,
+    text = ~precision,
+    marker = list(
+      size = 10,
+      color = "orange",    
+      opacity = 1
+    )
+  )
+```
+
+
+## Leaflet marker over polygon
+
+```{r}
+library(leaflet)
+
+district <- 
+  st_read("data/shape_file/Districts.shp")
+
+map <- 
+  leaflet(data = district) |> 
+  addTiles() %>%
+  addPolygons() %>%
+  addCircleMarkers(
+    data = data_with_markers,
+    lat = ~latitude,
+    lng = ~longitude,
+    radius = 5,       
+    color = "orange", 
+    stroke = FALSE,
+    fillOpacity = 0.2,
+    label = ~paste("GPS Precision:", precision, "\n", district) # if popup on click
+  )
+```
+
+# html
+
+## progress bar
+
+```{=html}
+<div class="progress">
+  <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+</div>
+```
+
+## list
+
+```{=html}
+<div class="vstack gap-3">
+  <div class="bg-light border">First item</div>
+  <div class="bg-light border">Second item</div>
+  <div class="bg-light border">Third item</div>
+</div>
+```
+
+## card
+
+```{=html}
+<div class="card" style="width: 18rem;">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">An item</li>
+    <li class="list-group-item">A second item</li>
+    <li class="list-group-item">A third item</li>
+  </ul>
+  <div class="card-body">
+    <a href="#" class="card-link">Card link</a>
+    <a href="#" class="card-link">Another link</a>
+  </div>
+</div>
+```
+
+# CSS
+
+```{css, echo = FALSE}
+.justify {
+  text-align: justify
+}
+```
+
+
+# Quarto
+
+## Align/justify
+
+<div style="text-align: justify">
